@@ -1,13 +1,13 @@
 # Crypto-currency Dashboard
 
 ## To do🏹
-- Token picker💰
-- Forecast plot📈
-- Forecast term slider🎚️
 - model performance📊
 
 ## In Progress
+- Forecast plot📈
 
 ## Testing
+- Token picker💰
+- Forecast term slider🎚️
 
 ## Done🎯

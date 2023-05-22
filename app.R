@@ -1,31 +1,38 @@
-library(quantmod)
+library(shiny)
 library(forecast)
+library(quantmod)
 library(tidyverse)
+library(rvest)
 
-btc <- getSymbols("BTC-USD", from = "2018-01-01", to = Sys.Date(), auto.assign = FALSE)
-btc <- as.data.frame(btc)
-btc.adjusted <- ts(btc[, "BTC-USD.Adjusted"], start = 2018, frequency = 365)
+url <- "https://coinranking.com/"
+webpage <- read_html(url)
 
-# Plot Adjusted Close price using base R
-plot(btc.adjusted, type = "l", xlab = "Year", ylab = "Price Adjusted", main = "BTC-USD")
+tbl <- html_table(html_nodes(webpage, "table"))[[2]][1]
+tokens <- sapply(tbl, function(x) substr(x, nchar(x) - 5, nchar(x)))
+tokens <- as.vector(tokens)
+tokens <- gsub("\\s+", "", tokens)
+tokens <- tokens[tokens != "gainer"]
+tokens <- tokens[tokens != "loser"]
+tokens <- tokens[tokens != ""]
+tokens <- paste0(tokens, "-USD")
 
-# Plot Adjusted Close price using ggplot
-autoplot(btc.adjusted) +
-    ggtitle("BTC-USD") +
-    xlab("Year") +
-    ylab("Adjusted")
+ui <- fluidPage(
+    titlePanel("Forecasting Dashboard"),
+    selectInput("token", "Select a token.", tokens),
+    sliderInput("term", "How many days into future.", min=30, max=720, step = 30, value=360),
+    plotOutput("plot")
+)
 
-# Arima
-fitA <- auto.arima(btc.adjusted, seasonal = F)
-fcA <- forecast(fitA, h=365)
-autoplot(fcA, h=365)
+server <- function(input, output) {
+    output$plot <- renderPlot({
+        btc <- getSymbols(input$token, from = "2018-01-01", to = Sys.Date(), auto.assign = FALSE)
+        btc <- as.vector(btc[, 4])
+        btc <- ts(btc, start = 2018, frequency= 365)
 
-# NNETAR
-fitB <- nnetar(btc.adjusted)
-fcB <- forecast(fitB, h=365)
-autoplot(fcB, h=365)
+        fit <- stlf(btc, method='naive')
+        fc <- forecast(fit, h=input$term)
+        autoplot(fc, h=input$term)
+    })
+}
 
-# stl
-fitC <- stlf(btc.adjusted, method='naive')
-fcC <- forecast(fitC, h=365)
-autoplot(fcC, h=365)
+shinyApp(ui, server)
