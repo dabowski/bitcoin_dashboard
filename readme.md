@@ -8,6 +8,6 @@
 
 ## Testing
 - Token picker💰
-- Forecast term slider🎚️
 
 ## Done🎯
+- Forecast term slider🎚️
