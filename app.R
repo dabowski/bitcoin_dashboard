@@ -6,8 +6,8 @@ library(rvest)
 
 url <- "https://coinranking.com/"
 webpage <- read_html(url)
-
 tbl <- html_table(html_nodes(webpage, "table"))[[2]][1]
+
 tokens <- sapply(tbl, function(x) substr(x, nchar(x) - 5, nchar(x)))
 tokens <- as.vector(tokens)
 tokens <- gsub("\\s+", "", tokens)
@@ -21,11 +21,11 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("token", "Select a token.", tokens),
-            sliderInput("term", "How many days into future?", min=30, max=720, step = 30, value=360),
-            radioButtons("bt", "Choose a method:", c("STLF", "ARIMA"))
+            sliderInput("term", "How many days into the future you want to forecast?", min=30, max=720, step = 30, value=360),
+            radioButtons("bt", "Choose a method:", c("STLF", "NNETAR"))
         ),
         mainPanel(
-            plotOutput("plot")
+            plotOutput("plot") 
         )
     )
 )
@@ -48,7 +48,9 @@ server <- function(input, output) {
         }
 
         fc <- forecast(fit, h=input$term)
-        autoplot(fc, h=input$term)
+        autoplot(fc, h=input$term) +
+            ylab("Adjusted Close Price") +
+            xlab("Year")
     })
 }
 

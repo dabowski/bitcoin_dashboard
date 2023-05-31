@@ -5,7 +5,7 @@ library(tidyverse)
 btc <- getSymbols("BTC-USD", from = "2018-01-01", to = Sys.Date(), auto.assign = FALSE)
 btc <- as.vector(btc[,4])
 btc
-qtc.adjusted <- ts(btc, start = 2018, frequency = 365)
+btc.adjusted <- ts(btc, start = 2018, frequency = 365)
 
 # Plot Adjusted Close price using base R
 plot(btc.adjusted, type = "l", xlab = "Year", ylab = "Price Adjusted", main = "BTC-USD")
