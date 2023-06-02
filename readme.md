@@ -1,5 +1,5 @@
 # Crypto-currency Dashboard📈
-This Crypto-currency Forecasting Dashboard is a web application built using R Shiny that provides uuser with interactive visualization of price forecast.
+This Crypto-currency Forecasting Dashboard is a web application built using R Shiny that provides user with interactive visualization of price forecast and candle stick chart.
 The dashboard utilizes historical crypto-currency data from Yahoo Finance and several forecasting techniques. 
 
 ## Features🎯
@@ -7,10 +7,12 @@ The dashboard utilizes historical crypto-currency data from Yahoo Finance and se
 - Forecast plot
 - Token picker
 - Method Selection
+- Candle Stick chart
 
 ## Requirements
 - R and packages:
     - Shiny
+    - prophet
     - forecast
     - quantmod
     - ggplot2
@@ -24,7 +26,7 @@ The dashboard utilizes historical crypto-currency data from Yahoo Finance and se
 
 2. Install packages
 ```{r}
-    install.packages(c("shiny", "forecast", "quantmod", "ggplot2", "rvest"))
+    install.packages(c("shiny", "forecast", "quantmod", "ggplot2", "rvest", "prophet"))
 ```
 
 ## Usage
@@ -34,5 +36,4 @@ The dashboard utilizes historical crypto-currency data from Yahoo Finance and se
 ```
 2. Choose token you want to forecast
 3. Select period over which you want to forecast
-4. Select forecasting method (STLF, NNETAR)
-    * NNETAR may take a while load
+4. Select forecasting method (PROPHET, NNETAR)
