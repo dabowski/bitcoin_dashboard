@@ -11,10 +11,10 @@ s <- "2023-01-01"
 plot(btc[,4][paste0(s, "/", today)], main="BTC-USD from 1st of January, 2023 to 10th of January, 2023")
 chartSeries(btc[paste0(s, "/", today)], type="candlesticks", name="BTC-USD")
 
-# Plot Adjusted Close price using base R
+# Plot Close price using base R
 plot(btc[,4], type = "l", xlab = "Year", ylab = "Price Adjusted", main = "BTC-USD")
 
-# Plot Adjusted Close price using ggplot
+# Plot Close price using ggplot
 autoplot(btc[,4]) +
     ggtitle("BTC-USD") +
     xlab("Year") +
@@ -39,6 +39,7 @@ autoplot(fcC, h=365)
 library(prophet)
 data <- data.frame(ds = time(btc), y=as.numeric(btc[,4]))
 data
+
 model <- prophet(data)
 future <- make_future_dataframe(model, periods = 365)
 forecast <- predict(model, future)

@@ -21,6 +21,7 @@ ui <- fluidPage(
     titlePanel("Forecasting Dashboard"),
     sidebarLayout(
         sidebarPanel(
+            selectInput("token", "Select a token.", tokens),
             sliderInput("dateSlider", label="Which period do you want to see?", min=as.Date("2018-01-01"), max=Sys.Date(), value=c(as.Date("2020-09-01"), as.Date("2020-10-01"))
         )),
         mainPanel(
@@ -29,7 +30,6 @@ ui <- fluidPage(
     ),
     sidebarLayout(
         sidebarPanel(
-            selectInput("token", "Select a token.", tokens),
             sliderInput("term", "How many days into the future you want to forecast?", min=30, max=720, step = 30, value=360),
             radioButtons("bt", "Choose a method:", c("PROPHET", "NNETAR"))
         ),
