@@ -42,7 +42,7 @@ ui <- fluidPage(
 
 server <- function(input, output) {
     coin_data <- reactive({
-        getSymbols(input$token, from = "2018-01-01", to = Sys.Date(), auto.assign = FALSE)
+        na.approx(getSymbols(input$token, from = "2018-01-01", to = Sys.Date(), auto.assign = FALSE))  
     })
 
     output$plot <- renderPlot({
