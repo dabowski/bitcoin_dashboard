@@ -1,0 +1,10 @@
+name: bitcoin_dashboard
+title:
+username: dabkowski
+account: dabkowski
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9481056
+bundleId: 7476723
+url: https://dabkowski.shinyapps.io/bitcoin_dashboard/
+version: 1

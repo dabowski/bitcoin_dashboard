@@ -1,6 +1,9 @@
 # Crypto-currency Dashboard📈
-This Crypto-currency Forecasting Dashboard is a web application built using R Shiny that provides user with interactive visualization of price forecast and candle stick chart.
+My Crypto-currency Forecasting Dashboard is a web application built using R Shiny that provides user with interactive visualization of price forecast and candle stick chart.
 The dashboard utilizes historical crypto-currency data from Yahoo Finance and several forecasting techniques. 
+
+## Website
+Crypto-currency Forecasting Dashboard can be accessed on [this website](https://dabkowski.shinyapps.io/bitcoin_dashboard/)
 
 ## Features🎯
 - Forecast term slider
